@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="utf-8" />
+	<title>YouCode | Scrum Board</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN core-css ================== -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="assets/css/vendor.min.css" rel="stylesheet" />
+	<link href="assets/css/default/app.min.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	<!-- ================== END core-css ================== -->
+</head>
+<body>
+
+	<!-- BEGIN #app -->
+	<div id="app" class="app-without-sidebar">
+		<!-- BEGIN #content -->
+		<div id="content" class="app-content main-style">
+			<div class="row">
+				<div class="col-6">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+						<li class="breadcrumb-item active">Scrum Board </li>
+					</ol>
+					<!-- BEGIN page-header -->
+					<h1 class="page-header">
+						Scrum Board 
+					</h1>
+					<!-- END page-header -->
+				</div>
+				
+				<div class="col-6 text-end mt-3">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary rounded-pill" onclick="addTask()"><i class="bi bi-plus-lg p-0 pe-2 "></i>Add Task</a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-4 col-sm-6 mb-2">
+					<div class="w-100">
+						<div class="card-header bg-green-700">
+							<h4 class="">To do (<span id="to-do-tasks-count"></span>)</h4>
+
+						</div>
+						<div class="card-body p-0" id="to-do-tasks">
+							<!-- TO DO TASKS HERE -->
+							<button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom">
+								<div class="px-2">
+									<i class="bi bi-question-circle text-success fs-2"></i> 
+								</div>
+								<div class="text-start w-100 pe-2">
+									<div class="fw-bold">Keep all the updated requirements in one place</div>
+									<div class="text-start">
+										<div class="text-gray">#1 created in 2022-10-08</div>
+										<div class="" title="There is hardly anything more frustrating than having to look for current requirements in tens of comments under the actual description or having to decide which commenter is actually authorized to change the requirements. The goal here is to keep all the up-to-date requirements and details in the main/primary description of a task. Even though the information in comments may affect initial criteria, just update this primary description accordingly.">There is hardly anything more frustrating than having t...</div>
+									</div>
+									<div class="">
+										<span class="btn btn-primary py-1 px-2">High</span>
+										<span class="btn btn-light text-black py-1 px-2">Bug</span>
+									</div>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6 mb-2">
+					<div class="w-100">
+						<div class="card-header bg-indigo-700">
+							<h4 class="">In Progress (<span id="in-progress-tasks-count"></span>)</h4>
+
+						</div>
+						<div class="card-body p-0" id="in-progress-tasks">
+							<!-- IN PROGRESS TASKS HERE -->
+							<button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom">
+								<div class="px-2">
+									<i class="bi bi-arrow-counterclockwise text-success fs-2"></i>
+								</div>
+								<div class="text-start w-100 pe-2">
+									<div class="fw-bold">Describe steps to reproduce an issue</div>
+									<div class="">
+										<div class="text-gray">#2 created in 2022-10-08</div>
+										<div class="" title="including as many details as possible.">including as many details as possible.</div>
+									</div>
+									<div class="">
+										<span class="btn btn-primary py-1 px-2">High</span>
+										<span class="btn btn-light text-black py-1 px-2">Bug</span>
+									</div>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-6 mb-2">
+					<div class="w-100">
+						<div class="card-header w-100 bg-red-800">
+							<h4 class="">Done (<span id="done-tasks-count"></span>)</h4>
+
+						</div>
+						<div class="card-body p-0 bg-white" id="done-tasks">
+							<!-- DONE TASKS HERE -->
+							<button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom">
+								<div class="px-2">
+									<i class="bi bi-check-circle text-success fs-2"></i> 
+								</div>
+								<div class="text-start w-100 pe-2">
+									<div class="fw-bold">Provide access to logs</div>
+									<div class="">
+										<div class="text-gray">#3 created in 2022-10-08</div>
+										<div class="" title="as they can be helpful in reproducing the steps that caused the problem in the first place.">as they can be helpful in reproducing the steps that ca...</div>
+									</div>
+									<div class="">
+										<span class="btn btn-primary py-1 px-2">High</span>
+										<span class="btn btn-light text-black py-1 px-2">Bug</span>
+									</div>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END #content -->
+		
+		
+		<!-- BEGIN scroll-top-btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
+		<!-- END scroll-top-btn -->
+	</div>
+	<!-- END #app -->
+	
+	<!-- TASK MODAL -->
+	<div class="modal fade" id="modal-task" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- Modal content goes here -->
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="modal-form" name="">
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">Title</label>
+						<input type="text" class="form-control" id="form-title">
+					</div>
+					<div class="fw-bold mb-2">Type</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" id="select-feature">
+						<label class="form-check-label" for="select-feature">
+						Feature
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="flexRadioDefault" id="select-bug" checked>
+						<label class="form-check-label" for="select-bug">
+						Bug
+						</label>
+					</div>
+	
+					<div class="fw-bold mb-2 mt-2">Priority</div>
+					<select class="form-select" aria-label="Default select example" id="form-priority">
+						<option selected>Please select</option>
+						<option value="Critical">Critical</option>
+						<option value="High">High</option>
+						<option value="Medium">Medium</option>
+						<option value="Low">Low</option>
+					</select>
+	
+					<div class="fw-bold mb-2 mt-2">Status</div>
+					<select class="form-select" aria-label="Default select example" id="form-status">
+						<option selected>Please select</option>
+						<option value="To Do">To do</option>
+						<option value="In Progress">In Progress</option>
+						<option value="Done">Done</option>
+					</select>
+	
+					<div class="row form-group">
+						<label for="date" class="col-sm-1 col-form-label">Date</label>
+						<div class="col-sm-12">
+							<div class="input-group date" id="datepicker">
+								<input type="date" class="form-control" id="form-date">
+								<span class="input-group-append">
+								</span>
+							</div>
+						</div>
+					</div>
+	
+					<div class="mb-3">
+						<div class="fw-bold mb-2 mt-2">description</div>
+						<textarea class="form-control" id="form-description" rows="8"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+				<button type="button" onclick="" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="btn-save">Save changes</button>
+				<button type="submit" class="btn btn-warning" data-bs-dismiss="modal" id="btn-edit" onclick="updateTask()">Edit</button>
+				<button type="submit" class="btn btn-danger" data-bs-dismiss="modal" id="btn-delete" onclick="deleteTask()">Delete</button>
+				</div>
+				</form>
+		</div>
+		</div>
+	</div>
+
+	<!-- ================== BEGIN core-js ================== -->
+	<script src="assets/js/vendor.min.js"></script>
+	<script src="assets/js/app.min.js"></script>
+	<script src="assets/js/data.js"></script>
+	<script src="assets/js/app.js"></script>
+	<script>
+		reloadTasks();
+	</script>
+	<!-- ================== END core-js ================== -->
+</body>
+</html>
