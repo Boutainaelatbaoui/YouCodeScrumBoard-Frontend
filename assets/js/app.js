@@ -62,7 +62,7 @@ function addTask(){
 }
 
 function btnTask(index){
-    ind = index;
+    // ind = index;
     if(tasks[index].type === "Feature"){
         form_feature.checked = true;
     }else {
@@ -81,6 +81,14 @@ function btnTask(index){
     form_status.value = tasks[index].status;
     form_date.value = tasks[index].date;
     form_description.value = tasks[index].description;
+
+    document.getElementById('btn-delete').addEventListener("click", () => {
+        deleteTask(index);
+    });
+
+    document.getElementById('btn-edit').addEventListener("click", () => {
+        updateTask(index);
+    })
 }
 
 
@@ -98,7 +106,7 @@ function editTask(index) {
     // Ouvrir Modal form
 }
 
-function updateTask() {
+function updateTask(index) {
     // GET TASK ATTRIBUTES FROM INPUTS
     var checked;
     if(form_feature.checked){
@@ -108,11 +116,11 @@ function updateTask() {
     }
 
     // Remplacer ancienne task par nouvelle task
-    tasks[ind].title = form_title.value;
-    tasks[ind].priority = form_priority.value;
-    tasks[ind].status = form_status.value;
-    tasks[ind].date = form_date.value;
-    tasks[ind].description = form_description.value;
+    tasks[index].title = form_title.value;
+    tasks[index].priority = form_priority.value;
+    tasks[index].status = form_status.value;
+    tasks[index].date = form_date.value;
+    tasks[index].description = form_description.value;
 
     // Fermer Modal form
     initTaskForm();
@@ -184,9 +192,9 @@ function reloadTasks() {
     document.getElementById("done-tasks-count").innerText = done_tasks_count;
 }
 
-function deleteTask() {
+function deleteTask(index) {
     // Remove task from array by index splice function
-    tasks.splice(ind, 1);
+    tasks.splice(index, 1);
     // close modal form
     initTaskForm();
     // refresh tasks
