@@ -12,21 +12,15 @@ let form_status       = document.getElementById('form-status');
 let form_date         = document.getElementById("form-date");
 let form_description  = document.getElementById("form-description");
 
+let btn_save          = document.getElementById('btn-save');
+let btn_edit          = document.getElementById('btn-edit');
+let btn_delete        = document.getElementById('btn-delete');
+
 let to_do_tasks       = document.getElementById('to-do-tasks');
 let in_progress_tasks = document.getElementById('in-progress-tasks');
 let done_tasks        = document.getElementById('done-tasks');
-var ind;
 
 form.addEventListener("submit", saveTask)
-
-
-function createTask() {
-    // initialiser task form
-
-    // Afficher le boutton save
-
-    // Ouvrir modal form 
-}
 
 function saveTask(e) {
     e.preventDefault()
@@ -56,12 +50,12 @@ function saveTask(e) {
 
 
 function addTask(){
-    document.getElementById('btn-save').style.display = "block";
-    document.getElementById('btn-edit').style.display = "none";
-    document.getElementById('btn-delete').style.display = "none";
+    btn_save.style.display = "block";
+    btn_edit.style.display = "none";
+    btn_delete.style.display = "none";
 }
 
-function btnTask(index){
+function formTask(index){
     // ind = index;
     if(tasks[index].type === "Feature"){
         form_feature.checked = true;
@@ -71,9 +65,9 @@ function btnTask(index){
 
 
 
-    document.getElementById('btn-save').style.display = "none";
-    document.getElementById('btn-edit').style.display = "block";
-    document.getElementById('btn-delete').style.display = "block";
+    btn_save.style.display = "none";
+    btn_edit.style.display = "block";
+    btn_delete.style.display = "block";
 
 
     form_title.value = tasks[index].title;
@@ -82,28 +76,22 @@ function btnTask(index){
     form_date.value = tasks[index].date;
     form_description.value = tasks[index].description;
 
-    document.getElementById('btn-delete').addEventListener("click", () => {
+    btn_delete.addEventListener("click", () => {
         deleteTask(index);
     });
 
-    document.getElementById('btn-edit').addEventListener("click", () => {
+    btn_edit.addEventListener("click", () => {
         updateTask(index);
     })
 }
 
-
-function editTask(index) {
-    // Initialisez task form
-
-    // Affichez updates
-
-    // Delete Button
-
-    // Définir l’index en entrée cachée pour l’utiliser en Update et Delete
-
-    // Definir FORM INPUTS
-
-    // Ouvrir Modal form
+function deleteTask(index) {
+    // Remove task from array by index splice function
+    tasks.splice(index, 1);
+    // close modal form
+    initTaskForm();
+    // refresh tasks
+    reloadTasks();
 }
 
 function updateTask(index) {
@@ -130,12 +118,9 @@ function updateTask(index) {
     
 }
 
-
-
 function initTaskForm() {
     // Clear task form from data
     document.getElementById("modal-form").reset();
-    // Hide all action buttons
 }
 
 function reloadTasks() {
@@ -150,7 +135,7 @@ function reloadTasks() {
 
     for(let i=0;i<tasks.length;i++){
         let button = `
-        <button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="btnTask(${i})">
+        <button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="formTask(${i})">
             <div class="px-2">
                 <i class="`+((tasks[i].status == 'To Do')?'bi bi-question-circle'
                 :(tasks[i].status == 'In Progress')?'bi bi-arrow-counterclockwise'
@@ -185,18 +170,8 @@ function reloadTasks() {
                 done_tasks_count++;
                 break;
         }
-        console.log(tasks[i].id);
     }
     document.getElementById("to-do-tasks-count").innerText = to_do_tasks_count;
     document.getElementById("in-progress-tasks-count").innerText = in_progress_tasks_count;
     document.getElementById("done-tasks-count").innerText = done_tasks_count;
-}
-
-function deleteTask(index) {
-    // Remove task from array by index splice function
-    tasks.splice(index, 1);
-    // close modal form
-    initTaskForm();
-    // refresh tasks
-    reloadTasks();
 }
