@@ -20,9 +20,11 @@ let to_do_tasks       = document.getElementById('to-do-tasks');
 let in_progress_tasks = document.getElementById('in-progress-tasks');
 let done_tasks        = document.getElementById('done-tasks');
 
+let index_global;
 
 form.addEventListener("submit", saveTask);
-
+btn_delete.addEventListener("click", deleteTask);
+btn_edit.addEventListener("click", updateTask);
 
 
 function saveTask(e) {
@@ -62,7 +64,7 @@ function addTask(){
     initTaskForm();
 }
 
-function btnTask(index){
+function formTask(index){
     index_global = index;
     if(tasks[index].type === "Feature"){
         form_feature.checked = true;
@@ -83,18 +85,11 @@ function btnTask(index){
     form_date.value = tasks[index].date;
     form_description.value = tasks[index].description;
 
-    btn_delete.addEventListener("click", () => {
-        deleteTask(index);
-    });
-    btn_edit.addEventListener("click", () => {
-        updateTask(index);
-    });
-
 }
 
-function deleteTask(index) {
+function deleteTask() {
     // Remove task from array by index splice function
-    tasks.splice(index, 1);
+    tasks.splice(index_global, 1);
     // Clear task form from data
     initTaskForm();
     // refresh tasks
@@ -111,11 +106,12 @@ function updateTask() {
     }
 
     // Remplacer ancienne task par nouvelle task
-    tasks[index].title = form_title.value;
-    tasks[index].priority = form_priority.value;
-    tasks[index].status = form_status.value;
-    tasks[index].date = form_date.value;
-    tasks[index].description = form_description.value;
+    tasks[index_global].title = form_title.value;
+    tasks[index_global].type  = checked;
+    tasks[index_global].priority = form_priority.value;
+    tasks[index_global].status = form_status.value;
+    tasks[index_global].date = form_date.value;
+    tasks[index_global].description = form_description.value;
 
     // Fermer Modal form
     initTaskForm();
@@ -143,7 +139,7 @@ function reloadTasks() {
 
     for(let i=0;i<tasks.length;i++){
         let button = `
-        <button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="btnTask(${i})">
+        <button class="w-100 d-flex bg-white p-0 py-2 border-0 border-bottom" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="formTask(${i})">
             <div class="px-2">
                 <i class="`+((tasks[i].status == 'To Do')?'bi bi-question-circle'
                 :(tasks[i].status == 'In Progress')?'bi bi-arrow-counterclockwise'
