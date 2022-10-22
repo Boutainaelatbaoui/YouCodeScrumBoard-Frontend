@@ -19,11 +19,10 @@ let btn_delete        = document.getElementById('btn-delete');
 let to_do_tasks       = document.getElementById('to-do-tasks');
 let in_progress_tasks = document.getElementById('in-progress-tasks');
 let done_tasks        = document.getElementById('done-tasks');
-let index_global;
+
 
 form.addEventListener("submit", saveTask);
-btn_delete.addEventListener("click", deleteTask);
-btn_edit.addEventListener("click", updateTask);
+
 
 
 function saveTask(e) {
@@ -84,11 +83,18 @@ function btnTask(index){
     form_date.value = tasks[index].date;
     form_description.value = tasks[index].description;
 
+    btn_delete.addEventListener("click", () => {
+        deleteTask(index);
+    });
+    btn_edit.addEventListener("click", () => {
+        updateTask(index);
+    });
+
 }
 
-function deleteTask() {
+function deleteTask(index) {
     // Remove task from array by index splice function
-    tasks.splice(index_global, 1);
+    tasks.splice(index, 1);
     // Clear task form from data
     initTaskForm();
     // refresh tasks
@@ -105,11 +111,11 @@ function updateTask() {
     }
 
     // Remplacer ancienne task par nouvelle task
-    tasks[index_global].title = form_title.value;
-    tasks[index_global].priority = form_priority.value;
-    tasks[index_global].status = form_status.value;
-    tasks[index_global].date = form_date.value;
-    tasks[index_global].description = form_description.value;
+    tasks[index].title = form_title.value;
+    tasks[index].priority = form_priority.value;
+    tasks[index].status = form_status.value;
+    tasks[index].date = form_date.value;
+    tasks[index].description = form_description.value;
 
     // Fermer Modal form
     initTaskForm();
