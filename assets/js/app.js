@@ -28,6 +28,7 @@ btn_edit.addEventListener("click", updateTask);
 
 
 function saveTask(e) {
+    
     e.preventDefault()
 
     var checked;
@@ -52,27 +53,29 @@ function saveTask(e) {
     initTaskForm();
     // refresh tasks
     reloadTasks();
+
 }
 
 
 function addTask(){
+
     btn_save.style.display = "block";
     btn_edit.style.display = "none";
     btn_delete.style.display = "none";
 
     // Clear task form from data
     initTaskForm();
+
 }
 
 function formTask(index){
+
     index_global = index;
     if(tasks[index].type === "Feature"){
         form_feature.checked = true;
     }else {
         form_bug.checked = true;
     }
-
-
 
     btn_save.style.display = "none";
     btn_edit.style.display = "block";
