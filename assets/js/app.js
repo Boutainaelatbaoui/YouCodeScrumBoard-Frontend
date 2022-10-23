@@ -126,7 +126,7 @@ function updateTask() {
 
 function initTaskForm() {
     // Clear task form from data
-    document.getElementById("modal-form").reset();
+    form.reset();
     // Hide all action buttons
 }
 
